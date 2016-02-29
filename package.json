@@ -2,7 +2,7 @@
   "name": "@adexchange/aeg-ses",
   "version": "0.0.2",
   "description": "SES client",
-  "main": "lib/index.js",
+  "main": "lib/ses.js",
   "author": "Ad Exchange Group",
   "repository": {
     "type": "git",
