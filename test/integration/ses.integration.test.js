@@ -1,21 +1,16 @@
-'use strict';
-
 import SES from '../../src/ses';
 
-describe('ses', () => {
+describe('ses', async () => {
 
 	const client = new SES(
 		'AKIAIWAAO6JEYTRO2OJQ',
 		'QTj4zCeoomDpr9oHTYqai/XFJDEfT5PIRkTh6rSz',
-		'https://email.us-west-2.amazonaws.com',
-		{from: 'donotreply@aegaffiliate.com'});
+		'https://email.us-west-2.amazonaws.com');
 
-	it('should generate an email using the default address', (done) => {
-		client.send('justin@adexchangegrp.com', 'Test Email', 'This is a test', done);
-	});
+	it('should generate an email', async () => {
 
-	it('should generate an email', (done) => {
-		client.send('justin@adexchangegrp.com', 'Test Email', 'This is a test', {from: 'test@aegaffiliate.com'}, done);
+		await client.send('justin@adexchangegrp.com', 'test@aegaffiliate.com', 'Test Email', 'This is a test');
+
 	});
 
 });

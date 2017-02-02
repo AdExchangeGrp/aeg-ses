@@ -1,28 +1,36 @@
-'use strict';
+// @flow
 
 import ses from 'node-ses';
+import Promise from 'bluebird';
 
+/**
+ * Sends an Amazon SES email
+ */
 class SES {
 
-	constructor(awsKey, awsSecret, zone, options) {
-		this._options = options;
+	_client: Object;
+
+	/**
+	 * Constructor
+	 * @param {string} awsKey
+	 * @param {string} awsSecret
+	 * @param {string} zone
+	 */
+	constructor (awsKey: string, awsSecret: string, zone: string) {
+
 		this._client = ses.createClient({key: awsKey, secret: awsSecret, amazon: zone});
+
 	}
 
-	send(to, subject, message, options, callback) {
-
-		let args = Array.prototype.slice.call(arguments);
-		to = args.shift();
-		subject = args.shift();
-		message = args.shift();
-		callback = args.pop();
-		options = args.length > 0 ? args.shift() : null;
-
-		if (!(options && options.from) && !(this._options && this._options.from)) {
-			return callback(new Error('No from address or default provided'));
-		}
-
-		let from = options && options.from ? options.from : this._options.from;
+	/**
+	 * Send an email
+	 * @param {string} to
+	 * @param {string}from
+	 * @param {string}subject
+	 * @param {string}message
+	 * @returns {Promise.<void>}
+	 */
+	async send (to: string, from: string, subject: string, message: string) {
 
 		const mailOptions = {
 			to: to,
@@ -31,9 +39,9 @@ class SES {
 			message: message
 		};
 
-		this._client.sendEmail(mailOptions, function (err) {
-			callback(err);
-		});
+		const sendEmail = Promise.promisify(this._client.sendEmail, {context: this._client});
+		await sendEmail(mailOptions);
+
 	}
 
 }
