@@ -46,5 +46,5 @@
     "bluebird": "^3.4.7",
     "node-ses": "^2.0.3"
   },
-  "engine": "node >= 4.1.0"
+  "engine": "node >= 6.10.0"
 }
