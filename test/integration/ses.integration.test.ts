@@ -1,4 +1,4 @@
-import SES from '../../src/ses';
+import SES from '../../src/index';
 
 describe('ses', async () => {
 
