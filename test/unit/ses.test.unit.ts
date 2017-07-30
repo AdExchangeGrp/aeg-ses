@@ -1,4 +1,4 @@
-/* empty test so builds do not fail, replace with real unit tests if applicable */
+// empty test so builds do not fail, replace with real unit tests if applicable
 
 describe('api - unit', async () => {
 
